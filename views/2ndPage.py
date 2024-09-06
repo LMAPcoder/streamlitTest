@@ -1,7 +1,6 @@
 import streamlit as st
 import torch
 import matplotlib.pyplot as plt
-import cv2
 from PIL import Image
 import numpy as np
 
@@ -14,7 +13,7 @@ ufile = st.file_uploader(
 
 if ufile:
 
-    image = Image.open(ufile)
+    image = Image.open(ufile).convert("RGB")
 
     img = np.array(image)
 
@@ -26,10 +25,6 @@ if ufile:
     transform = midas_transforms.small_transform
 
     midas.eval()
-
-    #filename = 'dog.jpg'
-    #img = cv2.imread(filename)
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
     input_batch = transform(img)
 
